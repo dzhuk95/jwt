@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/")
 public class Controller {
     @Autowired
     UserService userService;
