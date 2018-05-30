@@ -1,12 +1,11 @@
-package com.example.jwt.config;
+package com.example.jwt.filter;
 
-import com.example.jwt.service.TokenService;
+import com.example.jwt.service.impl.TokenServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -22,7 +21,7 @@ public class JWTFilter extends GenericFilterBean {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     @Autowired
-    private TokenService tokenService;
+    private TokenServiceImpl tokenService;
 
     @Autowired
     private ObjectMapper objectMapper;

@@ -1,4 +1,4 @@
-package com.example.jwt.model;
+package com.example.jwt.model.exception;
 
 public class WrongTokenException extends RuntimeException {
     public WrongTokenException() {
