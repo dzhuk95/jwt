@@ -19,13 +19,23 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private JWTFilter jwtFilter;
+    @Bean
+    public JWTFilter jwtAuthenticationFilter() {
+        return new JWTFilter();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/auth", "/", "/h2/**").permitAll().anyRequest().authenticated();
-        http.addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class).sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.cors()
+                .and()
+                .csrf()
+                .disable()
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class).sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+                .antMatchers("/auth", "/", "/h2/**")
+                .permitAll().anyRequest().authenticated();
+
+
     }
 }
