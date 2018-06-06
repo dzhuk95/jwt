@@ -7,14 +7,11 @@ import org.springframework.security.core.Authentication;
 
 public interface TokenService {
 
-    String key = "aswrwqetscvzx123";
-
-    long tokenLiveDays = 1;
 
 
     Authentication parseToken(String token);
 
-    default Claims getClaims(String token) {
+    default Claims getClaims(String token,String key) {
         return Jwts.parser().setSigningKey(key)
                 .parseClaimsJws(token)
                 .getBody();

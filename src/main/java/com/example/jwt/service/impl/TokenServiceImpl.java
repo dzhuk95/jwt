@@ -23,8 +23,12 @@ import java.util.stream.Collectors;
 // TODO: 30.05.2018 add interface
 public class TokenServiceImpl implements TokenService {
 
+    private final String key = "aswrwqetscvzx123";
+
+    private final long tokenLiveDays = 1;
+
     public Authentication parseToken(String token) {
-        Claims claims = getClaims(token);
+        Claims claims = getClaims(token, key);
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get("role").toString().split(","))
                         .map(SimpleGrantedAuthority::new)
@@ -48,7 +52,7 @@ public class TokenServiceImpl implements TokenService {
 
     public boolean validateToken(String token) throws RuntimeException {
         try {
-            Claims body = getClaims(token);
+            Claims body = getClaims(token, key);
             return true;
         } catch (SignatureException e) {
             throw new WrongTokenException("Invalid JWT signature");
